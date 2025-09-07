@@ -69,6 +69,3 @@
 - [7] [Scaling Retrieval-Based Language Models with a Trillion-Token Datastore (Univ. of Washington)](https://arxiv.org/pdf/2407.12854)
 - [8] [Why I don’t think AGI is right around the corner — Continual learning is a huge bottleneck](https://www.dwarkesh.com/p/timelines-june-2025)
 
-
-
-오늘날 우리가 가진 AI는 마치 AI의 원시인과 같습니다. 만약 수십억 개의 AI와 장기간 협력하고 경쟁하며 문명을 건설할 수 있다면, 본질적으로 그들이 생산하고 답할 수 있는 것들은 오늘날 우리가 가진 AI로는 불가능한 것을 훨씬 뛰어넘을 것입니다 ."
