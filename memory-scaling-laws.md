@@ -44,7 +44,7 @@
 ## 메모리가 새로운 scaling factor가 될 수 있는 근거
 - RETRO (2022. DeepMind)
   - 논문은 **대규모 외부 텍스트 데이터베이스(최대 수조 토큰)**에서 **유사 문서 청크를 검색(retrieval)**해, 그 결과를 LM의 생성에 결합하는 **Retrieval-Enhanced Transformer(RETRO)**를 제안
-  - 외부 텍스트 검색 DB 크기·이웃 수 증가에 따라 언어모델 성능이 단조 개선(과도한 이웃 수는 역효과).
+  - 외부 텍스트 검색 DB 크기·이웃 수(유사 청크의 개수를 의미) 증가에 따라 언어모델 성능이 단조 개선(과도한 이웃 수는 역효과).
   - Trillion token 급 스케일에서 파라미터(N)의 대안으로 메모리(M) 스케일링이 실용적이며 강력함을 보여줌
 - Scaling Retrieval-Based Language Models with a Trillion-Token Datastore (2024. Univ. of Washington)
   - 파라미터 수(N)·사전학습 토큰(D) 중심의 전통적 스케일링 법칙을 넘어, 추론 시(inference-time) 사용할 수 있는 외부 데이터 저장소(데이터스토어)의 크기(M) 를 새로운 스케일 축으로 제시.
