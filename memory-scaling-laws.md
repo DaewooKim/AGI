@@ -27,13 +27,16 @@
   - M은 단순히 저장된 벡터의 크기와 같이 단일 지표로 정의되지 않음.
     - M은 1)경험의 양(size) 뿐만이 아니라 2) 기억의 구조화 수준(Structual Complexity), 3)검색, 통합, 압축 등 기억 운영에 필요한 계산 비용의 집합임
     - 작고 제대로 조직회되지 않는 기억(M)은 학습 능력을 제한함
-- M 역시 수확 체감의 법칙이 존재함
-  - M 역시 일정한 규모나 품질에 도달해야 정확도가 향상되는 임계 효과 존재함. 일정 이상의 N을 가진 LLM을 Pre-training하였을 때 emergent abilities가 생기는 것과 유사함
-  - CL을 할 때 새로운 개념의 학습 예시가 충분할 때 모델이 그 개념을 학습할 수 있음
+- M의 용량과 품질의 중요성
+  - M 역시 일정한 규모나 품질에 도달해야 정확도가 향상되는 임계 효과 존재함.
+    - 일정 이상의 N을 가진 LLM을 Pre-training하였을 때 emergent abilities가 생기는 것과 유사함
+  - 검색 시 잡음이 많은 문서와 질의와 무관한 문서로 가득 차 있다면, M의 크기가 크다고 해서 정확도를 개선하지 할 뿐만 아니라 오히려 답변의 품질이 떨어질 수 있음
+    - M이 무작위 웹데이터 같은 저품질 데이터를 가득 차 있다면 메모리 용량만 차지할 뿐 성능 향상에 도움이 되지 않음
+    - 퀴즈 QA는 메모리 데이터베이스에 그 정답이 담긴 문서가 적어도 하나는 있을 때부터 제대로 답하기 시작함
   - 단순히 M의 크기를 커지는 것이 아니라 M의 품질도 같이 증가해야 해야 함
-  - 
-
-
+- 메모리 접근 비용도 고려해야 함
+  - M의 크기가 커질수록 질의마다 방대한 메모리를 탐색해야 하므로 latency가 커짐
+  - 정확도를 높일만큼 충분한 M의 크기와 검색이 병목이 되지 않는 최적점을 찾아야 함
 
 ## 메모리가 새로운 scaling factor가 될 수 있는 근거
 
@@ -46,7 +49,7 @@
 
 ## Reference
 - [1] [LLM AGI will have memory, and memory changes alignment](https://www.lesswrong.com/posts/aKncW36ZdEnzxLo8A/llm-agi-will-have-memory-and-memory-changes-alignment)
-- [2] Long Term Memory: The Foundation of AI Self-Evolution(https://arxiv.org/pdf/2410.15665)
+- [2] [Long Term Memory: The Foundation of AI Self-Evolution](https://arxiv.org/pdf/2410.15665)
 - [3] [Scaling Test Time Compute to Multi-Agent Civilizations: Noam Brown](https://www.latent.space/p/noam-brown) 
 - [4] [Eric Schmidt: AI and the Genesis of a New Epoch](https://youtu.be/_gBxYL2ihc0)
 
