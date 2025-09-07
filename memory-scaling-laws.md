@@ -1,11 +1,12 @@
 # Memory기반 scaling laws 
 
 ## LLM의 문제점
-- LLM은 "선행성 기억상실증 환자"로 LLM은 새로운 세션이 열릴 때마다 백지 상태에서 시작 [1]
+- LLM은 "선행성 기억상실증 환자"로 LLM은 새로운 세션이 열릴 때마다 백지 상태에서 시작 [1],[8]
 - 현재 LLM의 학습 방식은 드문 하위집단/희귀 상황을 별도로 모델링하지 않고 전체 평균적 경향을 잘 맞추는 쪽으로 전역 평균화됨 [2]
 - 이로 인해 LLM의 응답은 중립/보편/무난하게 수렴되며, 평균을 벗어난 다양한 시나리오/희소한 개인 데이터/long-tail 상황을 이해하지 못함 [2] 
 - 현재 LLM은 학습 종료 시점의 지식에 묶여 있으며, 이는 인간 지능과 달리 환경에 적응하기 위해 지속적인 학습을 수행할 수 없음
-- 유한한 context window를 갖는 현 LLM의 구조는 장기 목표를 수행하는데 부적합함 
+- 유한한 context window를 갖는 현 LLM의 구조는 장기 목표를 수행하는데 부적합함
+- 인간의 생산성 가치는 ‘순수 지능’보다 문맥 축적, 실패 반추, 미세한 개선의 누적에서 나옴. LLM은 점진적인 학습 루프가 없음 [8]
 
 
 ## 정적 지능(Foundation Model)에서 동적/자기 진화형 지능으로 패러다임 전환
@@ -15,6 +16,7 @@
 - Noam Brown(OpenAI o1 research scientist. o1의 핵심 연구자)는 현재 AI를 원시인로 비유하며 수십억 개의 AI와 장기간 협력하고 경쟁하면 문명을 건설할 수 있을 것이라는 AI 문명 가설을 주장 [3]
 - Eric shumit는 시스템이 스스로 학습하는 RSI(Recurisve Self-Improvment)를 통해 인간이 이해할 수 없는 속도로 기하급수적으로 발전하는 시점이 올 것으로 예측 [4]
 - CL과 LTM은 상호 의존적임. LTM 없이 CL은 학습 데이터가 없고 CL이 없는 LTM은 단순한 데이터 아카이브에 불과함
+
 
 ## Scaling Laws
 - Scaling의 개념은 이미 학습을 넘어 추론(Test-time)으로 확장됨
@@ -40,15 +42,19 @@
   - 이를 위해 단순히 M의 크기를 증가시키기만 하면 오래되거나 무관한 데이터가 지배할 수 있으므로 데이터를 조직화하고 가치가 낮은 정보를 필터링하는 망각하는 메커니즘이 필요함
 
 ## 메모리가 새로운 scaling factor가 될 수 있는 근거
-- RETRO (DeepMind)
-- Memory layer at scale (Meta)
-- Scaling Retrieval-Based Language Models with a Trillion-Token Datastore (Univ. of Washington)
-- Scaling Laws For Dense Retrieval (Tsinghua Univ.)
-
+- RETRO (2022. DeepMind)
+  - 검색 DB 크기·이웃 수 증가에 따라 언어모델 성능이 단조 개선(과도한 이웃 수는 역효과).
+  - Trillion token 급 스케일에서 파라미터(N)의 대안으로 메모리(M) 스케일링이 실용적이며 강력함을 보여줌
+- Scaling Retrieval-Based Language Models with a Trillion-Token Datastore (2024. Univ. of Washington)
+  - 파라미터 수(N)·사전학습 토큰(D) 중심의 전통적 스케일링 법칙을 넘어, 추론 시(inference-time) 사용할 수 있는 외부 데이터 저장소(데이터스토어)의 크기(M) 를 새로운 스케일 축으로 제시.
+  - 추론 시 참조 가능한 데이터 양(데이터 스토어의 크기)를 키울수록 언어모델링과 지식집약 다운스트림 과제가 단조 증가(monotonic) 하게 개선됨을 보임 
+- Memory layer at scale (2024. Meta)
+  - 학습 가능한 Key–Value 메모리 레이어를 여러 Transformer 층의 FFN을 부분적으로 대체하는 방식으로 대규모(최대 128B 메모리 파라미터)까지 확장
+  - FLOPs 증가 없이 모델 용량을 늘리고, 특히 사실 질의·코딩·일반지식 태스크에서 동일/더 적은 계산으로 밀집(dense)·MOE보다 일관되게 우수함을 실증함
 
 ## 미해결 과제
 - Intelligence=f(C,N,D,M) 함수의 정확한 수학적 형태와 지수(exponent)는 무엇인가?
-  - 이를 밝히기 위해서는 기억의 크기, 구조, 운영 효율성을 체계적으로 변화시키며 성능을 측정하는 대규모 경험적 연구가 필요하다.
+  - 기억의 크기, 구조, 운영 효율성을 체계적으로 변화시키며 성능을 측정하는 대규모 경험적 연구가 필요함
 
 
 ## Reference
@@ -56,6 +62,10 @@
 - [2] [Long Term Memory: The Foundation of AI Self-Evolution](https://arxiv.org/pdf/2410.15665)
 - [3] [Scaling Test Time Compute to Multi-Agent Civilizations: Noam Brown](https://www.latent.space/p/noam-brown) 
 - [4] [Eric Schmidt: AI and the Genesis of a New Epoch](https://youtu.be/_gBxYL2ihc0)
+- [5] [Improving language models by retrieving from trillions of tokens (DeepMind)](https://arxiv.org/pdf/2112.04426)
+- [6] [Memory layer at scale (Meta)](https://arxiv.org/pdf/2412.09764)
+- [7] [Scaling Retrieval-Based Language Models with a Trillion-Token Datastore (Univ. of Washington)](https://arxiv.org/pdf/2407.12854)
+- [8] [Why I don’t think AGI is right around the corner — Continual learning is a huge bottleneck](https://www.dwarkesh.com/p/timelines-june-2025)
 
 
 
