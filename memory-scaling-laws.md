@@ -43,7 +43,8 @@
 
 ## 메모리가 새로운 scaling factor가 될 수 있는 근거
 - RETRO (2022. DeepMind)
-  - 검색 DB 크기·이웃 수 증가에 따라 언어모델 성능이 단조 개선(과도한 이웃 수는 역효과).
+  - 논문은 **대규모 외부 텍스트 데이터베이스(최대 수조 토큰)**에서 **유사 문서 청크를 검색(retrieval)**해, 그 결과를 LM의 생성에 결합하는 **Retrieval-Enhanced Transformer(RETRO)**를 제안
+  - 외부 텍스트 검색 DB 크기·이웃 수 증가에 따라 언어모델 성능이 단조 개선(과도한 이웃 수는 역효과).
   - Trillion token 급 스케일에서 파라미터(N)의 대안으로 메모리(M) 스케일링이 실용적이며 강력함을 보여줌
 - Scaling Retrieval-Based Language Models with a Trillion-Token Datastore (2024. Univ. of Washington)
   - 파라미터 수(N)·사전학습 토큰(D) 중심의 전통적 스케일링 법칙을 넘어, 추론 시(inference-time) 사용할 수 있는 외부 데이터 저장소(데이터스토어)의 크기(M) 를 새로운 스케일 축으로 제시.
@@ -51,6 +52,7 @@
 - Memory layer at scale (2024. Meta)
   - 학습 가능한 Key–Value 메모리 레이어를 여러 Transformer 층의 FFN을 부분적으로 대체하는 방식으로 대규모(최대 128B 메모리 파라미터)까지 확장
   - FLOPs 증가 없이 모델 용량을 늘리고, 특히 사실 질의·코딩·일반지식 태스크에서 동일/더 적은 계산으로 밀집(dense)·MOE보다 일관되게 우수함을 실증함
+  - Note: 이 논문은 Memory layer는 test-time이 아닌 pre-training 시 학습됨 
 
 ## 미해결 과제
 - Intelligence=f(C,N,D,M) 함수의 정확한 수학적 형태와 지수(exponent)는 무엇인가?
