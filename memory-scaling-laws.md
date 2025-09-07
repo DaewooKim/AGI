@@ -52,7 +52,7 @@
 - Memory layer at scale (2024. Meta)
   - 학습 가능한 Key–Value 메모리 레이어를 여러 Transformer 층의 FFN을 부분적으로 대체하는 방식으로 대규모(최대 128B 메모리 파라미터)까지 확장
   - FLOPs 증가 없이 모델 용량을 늘리고, 특히 사실 질의·코딩·일반지식 태스크에서 동일/더 적은 계산으로 밀집(dense)·MOE보다 일관되게 우수함을 실증함
-  - Note: 이 논문은 Memory layer는 test-time이 아닌 pre-training 시 학습됨 
+  - Note: 이 논문은 Memory layer는 test-time이 아닌 pre-training 시 학습됨. (Parameteric memory의 확장 관점)
 
 ## 미해결 과제
 - Intelligence=f(C,N,D,M) 함수의 정확한 수학적 형태와 지수(exponent)는 무엇인가?
